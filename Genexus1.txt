@@ -1,0 +1,32 @@
+//Remplazar elemento en grid
+&contador = 0
+  FOR &row in &Grid 
+	  &contador = &Grid.IndexOf(&row)
+	   &auxiliaritem = &Grid.Item(&contador)
+    iF &Grid.CurrentItem.SELECTED = 1 and &row.TABLE_NAME = &Grid.CurrentItem.TABLE_NAME
+	
+      //&row.SELECTED = 0
+	   
+       &auxiliaritem.SELECTED = 0
+	   
+	   
+	   //MSG('if1 DEBERIA SER 0:'+&row.SELECTED/* + "grid2:"+&dummyGrid.ToXml().ToString()*/)
+	  EXIT //&grid.
+    endif
+
+	iF &Grid.CurrentItem.SELECTED = 0 and &row.TABLE_NAME = &Grid.CurrentItem.TABLE_NAME
+		
+      &auxiliaritem.SELECTED = 1
+	  EXIT
+    endif
+    &dummyGrid = new()
+	   &dummyGrid = &Grid
+	   &dummyGrid.Remove(&contador)
+	   &dummyGrid.Add(&auxiliaritem,&contador)
+	   &Grid = new()
+	    
+	   &Grid = &dummyGrid
+	   &Selecionar.FromImage('select_unselect3.png')
+   //&contador = &contador + 1
+   &contador = 0
+  endfor
